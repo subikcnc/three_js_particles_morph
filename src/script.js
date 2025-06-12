@@ -198,4 +198,7 @@ We are going to send two sets of positions to the vertex shader,
 - the targeted shape as "aPositionTarget"
 - We send a "uProgress" uniform from 0 to 1. W use "uProgress" to mix between "position" and "aPositionTarget" in the vertex shader.
 - Finally we animate the "uProgress"
+
+* To control the delay before the mophing starts, we can use a Perlin Noise so that it feels like pieces of the models are seperating.
+
 */ 
