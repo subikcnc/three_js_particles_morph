@@ -108,6 +108,8 @@ particles.material = new THREE.ShaderMaterial({
 particles.points = new THREE.Points(particles.geometry, particles.material)
 // scene.add(particles.points)
 
+
+
 // Load Models
 gltfLoader.load('./models.glb', (gltf) => {
     // We initialize the particles when the models are being loaded
@@ -146,7 +148,7 @@ gltfLoader.load('./models.glb', (gltf) => {
     
     // Geometry
     particles.geometry = new THREE.BufferGeometry() // Create an empty geometry
-    particles.geometry.setAttribute('position', particles.positions[1]) 
+    particles.geometry.setAttribute('position', particles.positions[0]) 
     particles.geometry.setAttribute('aPositionTarget', particles.positions[3]) // This is the target position for morphing
     //particles.geometry.setIndex(null) // Remove the index to avoid drawing faces, we only want points
 
@@ -157,7 +159,8 @@ gltfLoader.load('./models.glb', (gltf) => {
         uniforms:
         {
             uSize: new THREE.Uniform(0.2), // This is for controlling the size of the particles
-            uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio))
+            uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)),
+            uProgress: new THREE.Uniform(0)
         },
         blending: THREE.AdditiveBlending,
         depthWrite: false,
@@ -166,6 +169,9 @@ gltfLoader.load('./models.glb', (gltf) => {
     // Points
     particles.points = new THREE.Points(particles.geometry, particles.material)
     scene.add(particles.points)
+
+    // Tweaks
+    gui.add(particles.material.uniforms.uProgress, 'value').min(0).max(1).step(0.001).name('uProgress')
 })
 
 /**
